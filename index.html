@@ -56,7 +56,7 @@
 
     async function fetchRandomJoke() {
       try {
-        let res = await fetch('http://localhost:3000/api/v1/jokes/random');
+        let res = await fetch('https://carambar-api-0cqu.onrender.com/api/v1/jokes/random');
         if (!res.ok) throw new Error('Erreur API');
         let joke = await res.json();
         question.textContent = joke.question;
