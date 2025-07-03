@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Carambar & co - Blagues</title>
+  <style>
+    body {
+      font-family: 'Comic Sans MS', cursive, sans-serif;
+      background-color: #f9e79f;
+      color: #5d4037;
+      text-align: center;
+      padding: 2rem;
+    }
+    button {
+      background-color: #ff5722;
+      border: none;
+      color: white;
+      padding: 1rem 2rem;
+      font-size: 1.2rem;
+      cursor: pointer;
+      border-radius: 5px;
+    }
+    button:hover {
+      background-color: #e64a19;
+    }
+    #joke {
+      margin-top: 2rem;
+      font-size: 1.4rem;
+      max-width: 600px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    #question {
+      font-weight: bold;
+    }
+    #answer {
+      margin-top: 1rem;
+      font-style: italic;
+      color: #3e2723;
+    }
+  </style>
+</head>
+<body>
+  <h1>Bienvenue chez Carambar & co</h1>
+  <button id="newJokeBtn">Nouvelle blague</button>
+  <div id="joke" >
+    <div id="question"></div>
+    <div id="answer"></div>
+  </div>
+
+  <script>
+    let btn = document.getElementById('newJokeBtn');
+    let question = document.getElementById('question');
+    let answer = document.getElementById('answer');
+
+    async function fetchRandomJoke() {
+      try {
+        let res = await fetch('http://localhost:3000/api/v1/jokes/random');
+        if (!res.ok) throw new Error('Erreur API');
+        let joke = await res.json();
+        question.textContent = joke.question;
+        answer.textContent = joke.answer;
+      } catch (err) {
+        question.textContent = 'Oops, impossible de récupérer une blague.';
+        answer.textContent = '';
+      }
+    }
+
+    btn.addEventListener('click', fetchRandomJoke);
+
+   
+    fetchRandomJoke();
+  </script>
+</body>
+</html>
